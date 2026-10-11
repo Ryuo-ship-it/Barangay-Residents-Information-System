@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Resident Information System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar no-print">
+            <div class="sidebar-header">
+                <div class="logo-placeholder"></div>
+                <h2>BRIS</h2>
+                <p>Barangay Information</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="dashboard-view">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-target="residents-view">
+                    <span class="icon">👥</span> Residents
+                </a>
+                <a href="#" class="nav-item" data-target="households-view">
+                    <span class="icon">🏠</span> Households
+                </a>
+                <a href="#" class="nav-item" data-target="reports-view">
+                    <span class="icon">📄</span> Reports
+                </a>
+                <a href="#" class="nav-item" data-target="settings-view">
+                    <span class="icon">⚙️</span> Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header no-print">
+                <h1 id="page-title">Dashboard</h1>
+            </header>
+
+            <!-- Views Container -->
+            <div class="views-container">
+                
+                <!-- Dashboard View -->
+                <section id="dashboard-view" class="view-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Population</h3>
+                            <p class="stat-value" id="stat-total-pop">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Households</h3>
+                            <p class="stat-value" id="stat-total-households">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Male / Female</h3>
+                            <p class="stat-value"><span id="stat-male">0</span> / <span id="stat-female">0</span></p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Senior Citizens</h3>
+                            <p class="stat-value" id="stat-seniors">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-details">
+                        <div class="card">
+                            <h3>Age Groups</h3>
+                            <ul class="stats-list">
+                                <li>Children (0-17): <span id="stat-children">0</span></li>
+                                <li>Adults (18-59): <span id="stat-adults">0</span></li>
+                                <li>Seniors (60+): <span id="stat-seniors-detail">0</span></li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>4Ps Status</h3>
+                            <ul class="stats-list">
+                                <li>Beneficiaries: <span id="stat-4ps">0</span></li>
+                                <li>Non-4Ps: <span id="stat-non-4ps">0</span></li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Housing</h3>
+                            <ul class="stats-list">
+                                <li>Own House: <span id="stat-own-house">0</span></li>
+                                <li>Renting: <span id="stat-renting">0</span></li>
+                                <li>With Relatives: <span id="stat-relatives">0</span></li>
+                                <li>Other: <span id="stat-housing-other">0</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Residents View -->
+                <section id="residents-view" class="view-section">
+                    <div class="view-toolbar">
+                        <div class="search-filter">
+                            <input type="text" id="search-resident" placeholder="Search residents...">
+                            <select id="filter-purok">
+                                <option value="">All Puroks</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="btn-add-resident">+ Add Resident</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="residents-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Purok</th>
+                                    <th>Family</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Households View -->
+                <section id="households-view" class="view-section">
+                    <div class="view-toolbar">
+                        <input type="text" id="search-household" placeholder="Search households...">
+                        <button class="btn btn-primary" id="btn-add-household">+ Create Household</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="households-table">
+                            <thead>
+                                <tr>
+                                    <th>Family Name</th>
+                                    <th>Head of Family</th>
+                                    <th>Members</th>
+                                    <th>Purok</th>
+                                    <th>4Ps</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Reports View -->
+                <section id="reports-view" class="view-section">
+                    <div class="reports-container">
+                        <div class="report-options">
+                            <h3>Generate Report</h3>
+                            <select id="report-type">
+                                <option value="population">Complete Population</option>
+                                <option value="purok">Population by Purok</option>
+                                <option value="households">Total Households</option>
+                                <option value="4ps">4Ps Beneficiaries</option>
+                            </select>
+                            <button class="btn btn-primary" id="btn-generate-report">Generate</button>
+                            <button class="btn btn-secondary" id="btn-print-report">Print</button>
+                        </div>
+                        <div class="report-preview" id="report-preview">
+                            <!-- Report injected here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings View -->
+                <section id="settings-view" class="view-section">
+                    <div class="settings-grid">
+                        <div class="card">
+                            <h3>Barangay Profile</h3>
+                            <form id="form-barangay-profile">
+                                <div class="form-group">
+                                    <label>Barangay Name</label>
+                                    <input type="text" id="setting-brgy-name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Municipality/City</label>
+                                    <input type="text" id="setting-municipality">
+                                </div>
+                                <div class="form-group">
+                                    <label>Province</label>
+                                    <input type="text" id="setting-province">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btn-save-profile">Save Profile</button>
+                            </form>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Data Management</h3>
+                            <p>Backup or restore your local database. Backup regularly to avoid data loss!</p>
+                            <div class="action-buttons mt-2">
+                                <button class="btn btn-secondary" id="btn-backup-data">Export Backup (JSON)</button>
+                                <label class="btn btn-warning" style="cursor: pointer;">
+                                    Import Backup
+                                    <input type="file" id="file-import-data" accept=".json" style="display: none;">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals (Hidden by default) -->
+    <div id="resident-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Add Resident</h2>
+            
+            <div id="add-mode-selector" class="mb-3">
+                <p>Select how to add this resident:</p>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="btn-mode-existing">Add to Existing Family</button>
+                    <button class="btn btn-secondary" id="btn-mode-new">Create New Family</button>
+                </div>
+            </div>
+
+            <form id="resident-form" style="display: none;">
+                <!-- Household Selection (Existing Mode) -->
+                <div id="existing-family-section" class="form-section">
+                    <h3>Select Family</h3>
+                    <div class="form-group">
+                        <label>Household</label>
+                        <select id="select-household" required>
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- New Household Info (New Mode) -->
+                <div id="new-family-section" class="form-section" style="display: none;">
+                    <h3>New Household Information</h3>
+                    <div class="form-group">
+                        <label>Family Name (Surname)</label>
+                        <input type="text" id="hh-family-name">
+                    </div>
+                    <div class="form-group">
+                        <label>Address (House/Street)</label>
+                        <input type="text" id="hh-address">
+                    </div>
+                    <div class="form-group">
+                        <label>Purok</label>
+                        <select id="hh-purok">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>House Ownership</label>
+                        <select id="hh-ownership">
+                            <option value="Own House">Own House</option>
+                            <option value="Renting">Renting</option>
+                            <option value="Living with Relatives">Living with Relatives</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="hh-is-4ps"> 4Ps Beneficiary Household
+                        </label>
+                    </div>
+                    <div class="form-group" id="group-4ps-id" style="display: none;">
+                        <label>4Ps Household ID</label>
+                        <input type="text" id="hh-4ps-id">
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Resident Personal Information</h3>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="res-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship to Head</label>
+                        <select id="res-relationship" required>
+                            <option value="Head of Family">Head of Family</option>
+                            <option value="Husband">Husband</option>
+                            <option value="Wife">Wife</option>
+                            <option value="Son">Son</option>
+                            <option value="Daughter">Daughter</option>
+                            <option value="Father">Father</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Brother">Brother</option>
+                            <option value="Sister">Sister</option>
+                            <option value="Relative">Relative</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="res-dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sex</label>
+                        <select id="res-sex" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Civil Status</label>
+                        <select id="res-civil" required>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Separated">Separated</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Educational Attainment</label>
+                        <input type="text" id="res-education">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="text" id="res-contact">
+                    </div>
+                    <div class="form-group">
+                        <label>Occupation</label>
+                        <input type="text" id="res-occupation">
+                    </div>
+                </div>
+
+                <div class="form-actions mt-2">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-resident">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-resident">Save Resident</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/residents.js"></script>
+    <script src="js/households.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html>
